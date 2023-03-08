@@ -1,4 +1,4 @@
-enum HomeStateAction {
+enum HomeAction {
   onInitState,
   onDisposeState,
   onLikePost,

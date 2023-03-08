@@ -7,7 +7,7 @@ class AccountViewsViewModel {
 
   AccountViewsViewModel(this._repository);
 
-  Future<Answer<HomeException, int>> getAccountsViews() async {
+  Future<Answer<HomeException, int>> getAccountViews() async {
     return await _repository.getAccountViews();
   }
 }

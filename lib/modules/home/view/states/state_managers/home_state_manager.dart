@@ -6,7 +6,7 @@ import 'package:state_manager_poc/modules/home/view/states/action/home_action.da
 import 'package:state_manager_poc/modules/home/view/states/home_state.dart';
 
 class HomeStateManager {
-  final _action = StreamController<HomeStateAction>.broadcast();
+  final _action = StreamController<HomeAction>.broadcast();
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -14,13 +14,20 @@ class HomeStateManager {
 
   final friendState = ValueNotifier<HomeState>(FriendInitial());
 
-  final accountViews =
-      ValueNotifier<AccountViewState?>(AccountViewState.initial);
 
-  Stream<HomeStateAction> get action => _action.stream;
 
-  void emitAction(HomeStateAction action) {
+  Stream<HomeAction> get action => _action.stream;
+
+  void emitAction(HomeAction action) {
     _action.sink.add(action);
+  }
+
+  void setState(HomeState state) {
+    if (state is PostState) {
+      postState.value = state;
+    } else if (state is FriendState) {
+      friendState.value = state;
+    }
   }
 
   void showSnackBar(String message) {
