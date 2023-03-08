@@ -1,7 +1,7 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:state_manager_poc/modules/home/view/states/account_views_state.dart';
 import 'package:state_manager_poc/modules/home/view/states/action/home_action.dart';
 import 'package:state_manager_poc/modules/home/view/states/home_state.dart';
 
@@ -14,11 +14,10 @@ class HomeStateManager {
 
   final friendState = ValueNotifier<HomeState>(FriendInitial());
 
-
-
   Stream<HomeAction> get action => _action.stream;
 
   void emitAction(HomeAction action) {
+    log('emitAction: $action - ${DateTime.now()}', name: 'Home Action');
     _action.sink.add(action);
   }
 
@@ -47,9 +46,6 @@ class HomeStateManager {
     }
     ScaffoldMessenger.of(scaffoldKey.currentContext!).showSnackBar(
       SnackBar(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
         backgroundColor: Colors.red,
         content: Text(
           message,

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:state_manager_poc/version_direct_controller/login_dc_controller.dart';
-import 'package:state_manager_poc/version_direct_controller/login_dc_page.dart';
-import 'package:state_manager_poc/version_direct_controller/login_dc_state_manager.dart';
+import 'package:get/get.dart';
+import 'package:state_manager_poc/modules/home/home_bindings.dart';
+import 'package:state_manager_poc/modules/home/view/pages/home_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,24 +13,19 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      // home: LoginPage(
-      //   stateManager: LoginStateManager(
-      //     controller: LoginController(
-      //       loginUseCase: LoginUseCase(),
-      //     ),
-      //   ),
-      // ),
-      home: LoginDCPage(
-        controller: LoginDCController(
-          stateManager: LoginDCStateManager(),
-          loginUseCase: LoginUseCase(),
+      initialRoute: '/home',
+      getPages: [
+        GetPage(
+          name: '/home',
+          page: () => HomePage(stateManager: Get.find()),
+          binding: HomeBindings(),
         ),
-      ),
+      ],
     );
   }
 }

@@ -55,7 +55,7 @@ class HomeDataSource {
         10,
         (index) => Friend(
           name: faker.person.name(),
-          imageUrl: 'https://picsum.photos/200/300?random=$index',
+          imageUrl: 'https://picsum.photos/200/300?person=$index',
         ),
       );
     } else if (response == 'notFound') {

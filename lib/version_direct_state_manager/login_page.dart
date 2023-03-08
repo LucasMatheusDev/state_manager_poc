@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:state_manager_poc/login_erros.dart';
-import 'package:state_manager_poc/login_state_manager%20copy.dart';
 import 'package:state_manager_poc/login_states.dart';
+import 'package:state_manager_poc/version_direct_state_manager/login_state_manager.dart';
 
 class LoginPage extends StatelessWidget {
   final LoginStateManager stateManager;

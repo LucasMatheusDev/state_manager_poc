@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:state_manager_poc/modules/home/model/exceptions/home_exception.dart';
 import 'package:state_manager_poc/modules/home/view/states/action/home_action.dart';
 import 'package:state_manager_poc/modules/home/view/states/home_state.dart';
@@ -12,20 +14,21 @@ class HomeController {
     required HomeStateManager stateManager,
     required HomeViewModel viewModel,
   })  : _stateManager = stateManager,
-        _viewModel = viewModel;
+        _viewModel = viewModel {
+    initListenAction();
+  }
 
   void initListenAction() {
     _stateManager.action.listen((action) {
-      switch (action) {
-        case HomeAction.onInitState:
-          getFriends();
-          getPosts();
-          break;
-        case HomeAction.onLikePost:
-          requestLogin();
-          break;
-        default:
-          break;
+      if (action is HomeActionInitState) {
+        getFriends();
+        getPosts();
+      } else if (action is HomeActionLikePost) {
+        final post = action.post;
+        log('post title: ${post.title}');
+        requestLogin();
+      } else if (action is HomeActionRefresh) {
+        getPosts();
       }
     });
   }
