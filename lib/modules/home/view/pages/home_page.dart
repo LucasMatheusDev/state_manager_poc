@@ -107,7 +107,9 @@ class _HomePageState extends State<HomePage> {
                       child: TextButton(
                         onPressed: () => widget.stateManager
                             .emitAction(HomeActionSearchPost()),
-                        child: const Text('We have a problem :( \n Try again?'),
+                        child: const Text(
+                          'We have a problem :( \n Try again?',
+                        ),
                       ),
                     );
                   } else if (state is PostNotFoundException) {
