@@ -9,11 +9,12 @@ class HomeBindings extends Bindings {
   @override
   void dependencies() {
     Get.put(HomeStateManager());
-    Get.put(HomeDataSource());
-    Get.put(HomeViewRepository(
-      Get.find(),
-    ));
-    Get.put(HomeViewModel(Get.find()));
+
+    Get.lazyPut(() => HomeDataSource());
+    Get.lazyPut(() => HomeViewRepository(
+          Get.find(),
+        ));
+    Get.lazyPut(() => HomeViewModel(Get.find()));
     Get.put(
       HomeController(
         stateManager: Get.find(),

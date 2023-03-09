@@ -103,8 +103,12 @@ class _HomePageState extends State<HomePage> {
                   } else if (state is PostLoadingState) {
                     return const CircularProgressIndicator();
                   } else if (state is PostFailureState) {
-                    return const Center(
-                      child: Text('We have a problem :('),
+                    return Center(
+                      child: TextButton(
+                        onPressed: () => widget.stateManager
+                            .emitAction(HomeActionSearchPost()),
+                        child: const Text('We have a problem :( \n Try again?'),
+                      ),
                     );
                   } else if (state is PostNotFoundException) {
                     return Center(

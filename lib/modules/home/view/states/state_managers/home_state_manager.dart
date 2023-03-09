@@ -16,6 +16,10 @@ class HomeStateManager {
 
   Stream<HomeAction> get action => _action.stream;
 
+  HomeStateManager() {
+    emitAction(HomeActionInstanceState());
+  }
+
   void emitAction(HomeAction action) {
     log('emitAction: $action - ${DateTime.now()}', name: 'Home Action');
     _action.sink.add(action);

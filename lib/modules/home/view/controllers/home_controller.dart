@@ -7,19 +7,18 @@ import 'package:state_manager_poc/modules/home/view/states/state_managers/home_s
 import 'package:state_manager_poc/modules/home/view_model/home_view_model.dart';
 
 class HomeController {
-  final HomeStateManager _stateManager;
+  final HomeStateManager stateManager;
   final HomeViewModel _viewModel;
 
   HomeController({
-    required HomeStateManager stateManager,
+    required this.stateManager,
     required HomeViewModel viewModel,
-  })  : _stateManager = stateManager,
-        _viewModel = viewModel {
+  }) : _viewModel = viewModel {
     initListenAction();
   }
 
   void initListenAction() {
-    _stateManager.action.listen((action) {
+    stateManager.action.listen((action) {
       if (action is HomeActionInitState) {
         getFriends();
         getPosts();
@@ -27,26 +26,27 @@ class HomeController {
         final post = action.post;
         log('post title: ${post.title}');
         requestLogin();
-      } else if (action is HomeActionRefresh) {
+      } else if (action is HomeActionRefresh ||
+          action is HomeActionSearchPost) {
         getPosts();
       }
     });
   }
 
   Future<void> getFriends() async {
-    _stateManager.setState(FriendLoadingState());
+    stateManager.setState(FriendLoadingState());
     final friendsAnswer = await _viewModel.getFriends();
     friendsAnswer.deal(
-      onSuccess: (friends) => _stateManager.setState(
+      onSuccess: (friends) => stateManager.setState(
         FriendSuccessState(friends),
       ),
       onFail: (exception) {
         if (exception is FriendNotFoundException) {
-          _stateManager.setState(
+          stateManager.setState(
             FriendsNotFoundState(exception.message),
           );
         } else {
-          _stateManager.setState(
+          stateManager.setState(
             FriendFailureState(exception.message),
           );
         }
@@ -55,19 +55,19 @@ class HomeController {
   }
 
   Future<void> getPosts() async {
-    _stateManager.setState(PostLoadingState());
+    stateManager.setState(PostLoadingState());
     final posts = await _viewModel.getPosts();
     posts.deal(
-      onSuccess: (posts) => _stateManager.setState(
+      onSuccess: (posts) => stateManager.setState(
         PostSuccessState(posts),
       ),
       onFail: (exception) {
         if (exception is PostNotFoundException) {
-          _stateManager.setState(
+          stateManager.setState(
             PostsNotFoundState(exception.message),
           );
         } else {
-          _stateManager.setState(
+          stateManager.setState(
             PostFailureState(exception.message),
           );
         }
@@ -76,6 +76,6 @@ class HomeController {
   }
 
   void requestLogin() {
-    _stateManager.showSnackBarRequestLogin('Please, login to like this post');
+    stateManager.showSnackBarRequestLogin('Please, login to like this post');
   }
 }
