@@ -6,4 +6,6 @@ class Friend {
     required this.name,
     required this.imageUrl,
   });
+
+  String get firstName => name.split(' ').first;
 }
