@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:state_manager_poc/modules/home/view/states/account_views_state.dart';
 import 'package:state_manager_poc/modules/home/view/states/action/home_action.dart';
 import 'package:state_manager_poc/modules/home/view/states/home_state.dart';
 
@@ -13,6 +14,8 @@ class HomeStateManager {
   final postState = ValueNotifier<HomeState>(PostInitial());
 
   final friendState = ValueNotifier<HomeState>(FriendInitial());
+
+  final accountViews = ValueNotifier<HomeState>(AccountViewsInitial());
 
   Stream<HomeAction> get action => _action.stream;
 
@@ -30,6 +33,8 @@ class HomeStateManager {
       postState.value = state;
     } else if (state is FriendState) {
       friendState.value = state;
+    } else if (state is AccountViewsState) {
+      accountViews.value = state;
     }
   }
 
@@ -57,5 +62,11 @@ class HomeStateManager {
         ),
       ),
     );
+  }
+
+  void onDispose() {
+    if (!_action.isClosed) {
+      _action.close();
+    }
   }
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:state_manager_poc/modules/home/model/exceptions/home_exception.dart';
 import 'package:state_manager_poc/modules/home/view/pages/widgets/friend_profile.dart';
 import 'package:state_manager_poc/modules/home/view/pages/widgets/post_list.dart';
+import 'package:state_manager_poc/modules/home/view/states/account_views_state.dart';
 import 'package:state_manager_poc/modules/home/view/states/action/home_action.dart';
 import 'package:state_manager_poc/modules/home/view/states/home_state.dart';
 import 'package:state_manager_poc/modules/home/view/states/state_managers/home_state_manager.dart';
@@ -71,6 +72,32 @@ class _HomePageState extends State<HomePage> {
                   } else if (state is FriendLoadingState) {
                     return const CircularProgressIndicator();
                   } else if (state is FriendFailureState) {
+                    return const Center(
+                      child: Text('We have a problem :('),
+                    );
+                  } else if (state is FriendNotFoundException) {
+                    return const Center(
+                      child: Text('No posts found :('),
+                    );
+                  } else {
+                    return const Center(
+                      child: Text('Error'),
+                    );
+                  }
+                },
+              ),
+              const SizedBox(height: 30),
+              ValueListenableBuilder(
+                valueListenable: widget.stateManager.accountViews,
+                builder: (context, state, child) {
+                  if (state is AccountViewsSuccessState) {
+                    return SizedBox(
+                      height: 150,
+                      child: Text(state.accountViews.toString()),
+                    );
+                  } else if (state is AccountViewsInitial) {
+                    return const SizedBox.shrink();
+                  } else if (state is AccountViewsFailureState) {
                     return const Center(
                       child: Text('We have a problem :('),
                     );

@@ -1,8 +1,11 @@
 import 'package:get/get.dart';
 import 'package:state_manager_poc/modules/home/model/data/home_data_source.dart';
+import 'package:state_manager_poc/modules/home/model/repositories/account_views_repository.dart';
 import 'package:state_manager_poc/modules/home/model/repositories/home_repository.dart';
+import 'package:state_manager_poc/modules/home/view/controllers/account_views_controller.dart';
 import 'package:state_manager_poc/modules/home/view/controllers/home_controller.dart';
 import 'package:state_manager_poc/modules/home/view/states/state_managers/home_state_manager.dart';
+import 'package:state_manager_poc/modules/home/view_model/account_views_view_model.dart';
 import 'package:state_manager_poc/modules/home/view_model/home_view_model.dart';
 
 class HomeBindings extends Bindings {
@@ -21,5 +24,17 @@ class HomeBindings extends Bindings {
         viewModel: Get.find(),
       ),
     );
+    Get.lazyPut(() => AccountViewsViewModel(
+          Get.find(),
+        ));
+
+    Get.lazyPut(() => FriendRepository(
+          Get.find(),
+        ));
+
+    Get.put(AccountViewsController(
+      viewModel: Get.find(),
+      stateManager: Get.find(),
+    ));
   }
 }
