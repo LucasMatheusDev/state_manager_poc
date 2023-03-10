@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:state_manager_poc/core/register_events.dart';
 import 'package:state_manager_poc/modules/home/use_cases/account_views_use_case.dart';
 import 'package:state_manager_poc/modules/home/use_cases/home_use_case.dart';
 import 'package:state_manager_poc/modules/home/view/controllers/account_views_controller.dart';
@@ -8,7 +9,14 @@ import 'package:state_manager_poc/modules/home/view/states/state_managers/home_s
 class HomeBindings extends Bindings {
   @override
   void dependencies() {
-    Get.put(HomeStateManager());
+    // Create a permanent instance of RegisterEvents
+    Get.put(RegisterEvents(), permanent: true);
+
+    Get.put(
+      HomeStateManager(
+        registerEvents: Get.find(),
+      ),
+    );
 
     Get.lazyPut(() => HomeUseCase());
     Get.put(
