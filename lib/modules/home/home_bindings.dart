@@ -1,6 +1,4 @@
 import 'package:get/get.dart';
-import 'package:state_manager_poc/modules/home/model/data/home_data_source.dart';
-import 'package:state_manager_poc/modules/home/model/repositories/home_repository.dart';
 import 'package:state_manager_poc/modules/home/use_cases/account_views_use_case.dart';
 import 'package:state_manager_poc/modules/home/use_cases/home_use_case.dart';
 import 'package:state_manager_poc/modules/home/view/controllers/account_views_controller.dart';
@@ -12,10 +10,6 @@ class HomeBindings extends Bindings {
   void dependencies() {
     Get.put(HomeStateManager());
 
-    Get.lazyPut(() => HomeDataSource());
-    Get.lazyPut(() => HomeViewRepository(
-          Get.find(),
-        ));
     Get.lazyPut(() => HomeUseCase());
     Get.put(
       HomeController(
