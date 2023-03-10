@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
 import 'package:state_manager_poc/modules/home/model/data/home_data_source.dart';
-import 'package:state_manager_poc/modules/home/model/repositories/account_views_repository.dart';
 import 'package:state_manager_poc/modules/home/model/repositories/home_repository.dart';
 import 'package:state_manager_poc/modules/home/use_cases/account_views_use_case.dart';
 import 'package:state_manager_poc/modules/home/use_cases/home_use_case.dart';
@@ -17,7 +16,7 @@ class HomeBindings extends Bindings {
     Get.lazyPut(() => HomeViewRepository(
           Get.find(),
         ));
-    Get.lazyPut(() => HomeUseCase(Get.find()));
+    Get.lazyPut(() => HomeUseCase());
     Get.put(
       HomeController(
         stateManager: Get.find(),
@@ -25,10 +24,6 @@ class HomeBindings extends Bindings {
       ),
     );
     Get.lazyPut(() => AccountViewsUseCase());
-
-    Get.lazyPut(() => FriendRepository(
-          Get.find(),
-        ));
 
     Get.put(AccountViewsController(
       viewModel: Get.find(),
