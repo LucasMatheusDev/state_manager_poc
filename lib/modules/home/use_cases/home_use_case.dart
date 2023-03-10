@@ -4,10 +4,10 @@ import 'package:state_manager_poc/modules/home/model/entities/post.dart';
 import 'package:state_manager_poc/modules/home/model/exceptions/home_exception.dart';
 import 'package:state_manager_poc/modules/home/model/repositories/home_repository.dart';
 
-class HomeViewModel {
+class HomeUseCase {
   final HomeViewRepository _repository;
 
-  HomeViewModel(this._repository);
+  HomeUseCase(this._repository);
 
   Future<Answer<HomeException, List<Friend>>> getFriends() async {
     return await _repository.getFriends();

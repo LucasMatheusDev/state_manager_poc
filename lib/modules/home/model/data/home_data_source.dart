@@ -70,31 +70,4 @@ class HomeDataSource {
       );
     }
   }
-
-  Future<int> getAccountViews() async {
-    final probabilityResponses = [
-      'success',
-      'error',
-      'success',
-      'notFound',
-      'success'
-    ];
-    probabilityResponses.shuffle();
-    final String response = probabilityResponses.first;
-    await Future.delayed(const Duration(seconds: 7));
-
-    if (response == 'success') {
-      return faker.randomGenerator.integer(100000, min: 1000);
-    } else if (response == 'notFound') {
-      throw RestClientException(
-        message: 'Not Found account views',
-        code: 404,
-      );
-    } else {
-      throw RestClientException(
-        message: 'Internal Server Error',
-        code: 500,
-      );
-    }
-  }
 }

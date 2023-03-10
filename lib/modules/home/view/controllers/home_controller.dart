@@ -1,18 +1,18 @@
 import 'dart:developer';
 
 import 'package:state_manager_poc/modules/home/model/exceptions/home_exception.dart';
+import 'package:state_manager_poc/modules/home/use_cases/home_use_case.dart';
 import 'package:state_manager_poc/modules/home/view/states/action/home_action.dart';
 import 'package:state_manager_poc/modules/home/view/states/home_state.dart';
 import 'package:state_manager_poc/modules/home/view/states/state_managers/home_state_manager.dart';
-import 'package:state_manager_poc/modules/home/view_model/home_view_model.dart';
 
 class HomeController {
   final HomeStateManager stateManager;
-  final HomeViewModel _viewModel;
+  final HomeUseCase _viewModel;
 
   HomeController({
     required this.stateManager,
-    required HomeViewModel viewModel,
+    required HomeUseCase viewModel,
   }) : _viewModel = viewModel {
     initListenAction();
   }
