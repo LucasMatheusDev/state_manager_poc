@@ -20,7 +20,6 @@ class HomeController {
   void initListenAction() {
     stateManager.action.listen((action) {
       if (action is HomeActionInitState) {
-        getFriends();
         getPosts();
       } else if (action is HomeActionLikePost) {
         final post = action.post;
@@ -31,27 +30,6 @@ class HomeController {
         getPosts();
       }
     });
-  }
-
-  Future<void> getFriends() async {
-    stateManager.setState(FriendLoadingState());
-    final friendsAnswer = await _viewModel.getFriends();
-    friendsAnswer.deal(
-      onSuccess: (friends) => stateManager.setState(
-        FriendSuccessState(friends),
-      ),
-      onFail: (exception) {
-        if (exception is FriendNotFoundException) {
-          stateManager.setState(
-            FriendsNotFoundState(exception.message),
-          );
-        } else {
-          stateManager.setState(
-            FriendFailureState(exception.message),
-          );
-        }
-      },
-    );
   }
 
   Future<void> getPosts() async {
