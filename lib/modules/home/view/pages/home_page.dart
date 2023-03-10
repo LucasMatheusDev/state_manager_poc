@@ -32,14 +32,29 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       key: widget.stateManager.scaffoldKey,
       appBar: AppBar(
-        title: const Text('Social Media App'),
+        backgroundColor: Colors.white,
+        elevation: 0,
+        title: const Text(
+          'Social App',
+          style: TextStyle(color: Colors.black),
+        ),
         actions: [
-          IconButton(
-            icon: const Icon(Icons.refresh),
-            onPressed: () {
-              widget.stateManager.emitAction(
-                HomeActionRefresh(),
-              );
+          ValueListenableBuilder(
+            valueListenable: widget.stateManager.accountViews,
+            builder: (context, state, child) {
+              if (state is AccountViewsSuccessState) {
+                return Center(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: Text(
+                      'Views in your profile: ${state.accountViews}',
+                      style: const TextStyle(color: Colors.black),
+                    ),
+                  ),
+                );
+              } else {
+                return const SizedBox.shrink();
+              }
             },
           ),
         ],
@@ -52,15 +67,17 @@ class _HomePageState extends State<HomePage> {
         },
         child: SingleChildScrollView(
           physics: const AlwaysScrollableScrollPhysics(),
-          padding: const EdgeInsets.all(16),
           child: Column(
             children: [
               ValueListenableBuilder(
                 valueListenable: widget.stateManager.friendState,
                 builder: (context, state, child) {
                   if (state is FriendSuccessState) {
-                    return SizedBox(
-                      height: 150,
+                    return ConstrainedBox(
+                      constraints: const BoxConstraints(
+                        maxHeight: 120,
+                        minHeight: 80,
+                      ),
                       child: FriendProfile(friends: state.posts),
                     );
                   } else if (state is FriendInitial) {
@@ -86,33 +103,7 @@ class _HomePageState extends State<HomePage> {
                   }
                 },
               ),
-              const SizedBox(height: 30),
-              ValueListenableBuilder(
-                valueListenable: widget.stateManager.accountViews,
-                builder: (context, state, child) {
-                  if (state is AccountViewsSuccessState) {
-                    return SizedBox(
-                      height: 150,
-                      child: Text(state.accountViews.toString()),
-                    );
-                  } else if (state is AccountViewsInitial) {
-                    return const SizedBox.shrink();
-                  } else if (state is AccountViewsFailureState) {
-                    return const Center(
-                      child: Text('We have a problem :('),
-                    );
-                  } else if (state is FriendNotFoundException) {
-                    return const Center(
-                      child: Text('No posts found :('),
-                    );
-                  } else {
-                    return const Center(
-                      child: Text('Error'),
-                    );
-                  }
-                },
-              ),
-              const SizedBox(height: 30),
+              const SizedBox(height: 5),
               ValueListenableBuilder(
                 valueListenable: widget.stateManager.postState,
                 builder: (context, state, child) {

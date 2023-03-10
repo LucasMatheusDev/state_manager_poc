@@ -19,52 +19,53 @@ class FriendProfile extends StatelessWidget {
       itemBuilder: (context, index) {
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 4),
-          child: SizedBox(
-            height: 90,
-            width: 90,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Container(
-                  height: 70,
-                  width: 70,
-                  decoration: BoxDecoration(
-                    color: Colors.grey,
-                    borderRadius: BorderRadius.circular(50),
-                    image: DecorationImage(
-                      image: NetworkImage(friends[index].imageUrl),
-                      fit: BoxFit.cover,
-                    ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                margin: const EdgeInsets.only(bottom: 5, right: 5),
+                height: 70,
+                width: 70,
+                constraints: const BoxConstraints(
+                  maxHeight: 70,
+                  maxWidth: 70,
+                ),
+                decoration: BoxDecoration(
+                  color: Colors.grey,
+                  borderRadius: BorderRadius.circular(50),
+                  image: DecorationImage(
+                    image: NetworkImage(friends[index].imageUrl),
+                    fit: BoxFit.cover,
                   ),
-                  child: Stack(
-                    children: [
-                      Positioned(
-                        bottom: 0,
-                        right: 0,
-                        child: Container(
-                          height: 20,
-                          width: 20,
-                          decoration: BoxDecoration(
-                            color: Colors.green,
-                            borderRadius: BorderRadius.circular(50),
-                          ),
+                ),
+                child: Stack(
+                  children: [
+                    Positioned(
+                      bottom: 0,
+                      right: 0,
+                      child: Container(
+                        height: 20,
+                        width: 20,
+                        decoration: BoxDecoration(
+                          color: Colors.green,
+                          borderRadius: BorderRadius.circular(50),
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-                FittedBox(
-                  fit: BoxFit.fitWidth,
-                  child: Text(
-                    friends[index].name,
-                    textAlign: TextAlign.center,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context).textTheme.bodyText1,
-                  ),
+              ),
+              Expanded(
+                child: Text(
+                  friends[index].firstName,
+                  textAlign: TextAlign.center,
+                  maxLines: 1,
+                  softWrap: false,
+                  overflow: TextOverflow.fade,
+                  style: Theme.of(context).textTheme.bodyText1,
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         );
       },

@@ -16,70 +16,56 @@ class PostList extends StatelessWidget {
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
       itemCount: posts.length,
+      padding: const EdgeInsets.all(0),
       itemBuilder: (context, index) {
         return Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Container(
-            height: 300,
-            decoration: BoxDecoration(
-              color: Colors.grey,
-              borderRadius: BorderRadius.circular(10),
-              image: DecorationImage(
-                image: NetworkImage(posts[index].imageUrl),
-                fit: BoxFit.cover,
-              ),
-            ),
-            child: Stack(
+          padding: const EdgeInsets.symmetric(vertical: 15),
+          child: SizedBox(
+            height: MediaQuery.of(context).size.height * 0.7,
+            width: MediaQuery.of(context).size.width,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Positioned(
-                  right: 0,
-                  top: 0,
-                  child: IconButton(
-                    icon: const Icon(Icons.favorite_rounded),
-                    onPressed: () {
-                      onLike(posts[index]);
-                    },
-                    color: Colors.grey,
-                    iconSize: 50,
+                Expanded(
+                  child: Image.network(
+                    posts[index].imageUrl,
+                    fit: BoxFit.cover,
+                    width: double.infinity,
                   ),
                 ),
-                Positioned(
-                  bottom: 0,
-                  left: 0,
-                  child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    decoration: BoxDecoration(
-                      color: Colors.black.withOpacity(0.5),
-                      borderRadius: const BorderRadius.only(
-                        bottomLeft: Radius.circular(10),
-                        bottomRight: Radius.circular(10),
-                      ),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        children: [
-                          Text(
-                            posts[index].title,
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleMedium!
-                                .copyWith(
-                                  color: Colors.white,
-                                ),
-                          ),
-                          const SizedBox(height: 5),
-                          Text(
-                            posts[index].description,
-                            textAlign: TextAlign.center,
-                            style:
-                                Theme.of(context).textTheme.bodySmall!.copyWith(
-                                      color: Colors.white,
-                                    ),
-                          ),
-                        ],
-                      ),
-                    ),
+                const SizedBox(height: 2),
+                IconButton(
+                  padding: const EdgeInsets.all(0),
+                  icon: const Icon(
+                    Icons.favorite_border_rounded,
+                    size: 30,
+                    color: Colors.black,
+                  ),
+                  onPressed: () {
+                    onLike(posts[index]);
+                  },
+                  color: Colors.grey,
+                  iconSize: 50,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: Text(
+                    posts[index].title,
+                    style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                        ),
+                  ),
+                ),
+                const SizedBox(height: 5),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: Text(
+                    posts[index].description,
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                          color: Colors.black,
+                        ),
                   ),
                 ),
               ],
