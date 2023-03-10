@@ -33,6 +33,8 @@ Future<Answer<HomeException, List<Post>>> fetchPosts() async {
           title: faker.lorem.sentence(),
           description: faker.lorem.sentence(),
           imageUrl: 'https://picsum.photos/200/300?random=$index',
+          author: faker.person.name(),
+          imageProfile: 'https://picsum.photos/200/300?profile=$index',
         ),
       ),
     );
