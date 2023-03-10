@@ -20,9 +20,10 @@ class PostList extends StatelessWidget {
       itemBuilder: (context, index) {
         return Padding(
           padding: const EdgeInsets.symmetric(vertical: 15),
-          child: SizedBox(
-            height: MediaQuery.of(context).size.height * 0.7,
-            width: MediaQuery.of(context).size.width,
+          child: AspectRatio(
+            aspectRatio: 1 / 1,
+            // height: MediaQuery.of(context).size.height * 0.7,
+            // width: MediaQuery.of(context).size.width,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
