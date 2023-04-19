@@ -6,7 +6,6 @@ class HomeActionInitState extends HomeAction {}
 
 class HomeActionInstanceState extends HomeAction {}
 
-
 class HomeActionDisposeState extends HomeAction {}
 
 class HomeActionLikePost extends HomeAction {

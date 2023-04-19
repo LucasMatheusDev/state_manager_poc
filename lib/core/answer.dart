@@ -6,7 +6,7 @@ abstract class Answer<F, S> {
   bool get isSuccess => this is Success<F, S>;
 
   bool get isFailure => this is Failure<F, S>;
-  
+
   R deal<R>({
     required R Function(F failure) onFail,
     required R Function(S success) onSuccess,

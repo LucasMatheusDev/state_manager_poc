@@ -27,8 +27,7 @@ class PostsNotFoundState extends PostState {
   PostsNotFoundState(this.message);
 }
 
-
-abstract class FriendState extends HomeState  {}
+abstract class FriendState extends HomeState {}
 
 class FriendInitial extends FriendState {}
 
@@ -51,4 +50,3 @@ class FriendsNotFoundState extends FriendState {
 
   FriendsNotFoundState(this.message);
 }
-

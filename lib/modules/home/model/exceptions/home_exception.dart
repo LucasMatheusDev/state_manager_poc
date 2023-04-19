@@ -22,7 +22,6 @@ class FriendNotFoundException extends HomeException {
   });
 }
 
-
 class PostDefaultException extends HomeException {
   PostDefaultException({
     required super.message,
